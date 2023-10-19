@@ -27,12 +27,12 @@ export interface ClientToServerEvents {
 
 
 const url = import.meta.env.VITE_SERVER;
+app.use(pinia);
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(url);
 const randomNumberStore = useRandomNumberStore();
 randomNumberStore.start(socket);
 
 app.use(router);
-app.use(pinia);
 app.use(PrimeVue, { ripple: true, });
 app.use(primeVueComponents);
 app.mount('#app');

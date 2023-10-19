@@ -4,19 +4,14 @@ import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
 import {storeToRefs} from "pinia";
 
 const randomNumberStore = useRandomNumberStore();
-const { generatedCount, currentLaunch, interval } = storeToRefs(randomNumberStore);
-randomNumberStore.$subscribe((mutation, state) => {
-  mutation.type // 'direct' | 'patch object' | 'patch function'
-  mutation.storeId // 'cart'
-  console.log(mutation)
-})
+const { currentLaunch, interval, numbers } = storeToRefs(randomNumberStore);
 </script>
 
 <template>
   <div class="mt-10 flex justify-center gap-5">
     <Card>
       <template #header>
-        {{ generatedCount }}
+        {{ numbers.length }}
       </template>
       <template #default>
         <p>Сгенерировано чисел</p>

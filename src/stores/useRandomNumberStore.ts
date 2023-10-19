@@ -1,23 +1,22 @@
 import {defineStore} from "pinia";
 import { Socket } from "socket.io-client";
 import {ClientToServerEvents, ServerToClientEvents} from "../main.ts";
+import {Ref, ref} from "vue";
 type State = {
-  generatedCount: number,
   currentLaunch: null | number,
   interval: null | number,
   currentNumber: null | number,
   socket: null | Socket<ServerToClientEvents, ClientToServerEvents>,
-  numbers: number[]
+  numbers: Ref<number[]>
 }
 export const useRandomNumberStore = defineStore('random', {
   state: (): State => {
     return {
-      generatedCount: 0,
       currentLaunch: null,
       interval: null,
       currentNumber: null,
       socket: null,
-      numbers: [],
+      numbers: ref([]),
     }
   },
   getters: {
@@ -36,6 +35,10 @@ export const useRandomNumberStore = defineStore('random', {
         console.log(randomNumber)
         this.numbers.push(randomNumber);
       });
+    },
+    setGenerator(launch: number, interval: number) {
+      this.currentLaunch = launch;
+      this.interval = interval;
     }
   },
 })

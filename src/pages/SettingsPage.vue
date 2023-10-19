@@ -3,13 +3,14 @@ import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
 import { ref } from "vue";
 import axios from "axios";
+import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
 
 const minMax = ref([20, 80]);
 const frequency = ref(30);
 const id = ref(312);
-
+const randomNumberStore = useRandomNumberStore();
 function onStart() {
-  console.log(`${import.meta.env.VITE_SERVER}/number`);
+  randomNumberStore.setGenerator(id.value, frequency.value);
   axios.post(`${import.meta.env.VITE_SERVER}/number`, {
     minMax: minMax.value,
     frequency: frequency.value,
