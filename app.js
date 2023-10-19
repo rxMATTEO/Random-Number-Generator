@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   socket.on('msg', (msg) => {
+    console.log(msg)
   });
 });
 
