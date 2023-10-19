@@ -6,6 +6,7 @@ app.use(express.json());
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const useRandom = require("./utils/useRandom");
 const dotenv = require("dotenv").config();
 const io = new Server(server, {
   cors: {
@@ -18,8 +19,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/number', (req, res) => {
-  console.log(req.body);
-  res.send(JSON.stringify(req.body));
+  const { minMax: [min, max], frequency, id } = req.body;
+  setInterval(() => {
+    io.emit('random', useRandom(min, max));
+  }, frequency * 1000)
+  res.send({});
 });
 
 io.on('connection', (socket) => {

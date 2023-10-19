@@ -19,7 +19,6 @@ const router = createRouter({
 
 const url = import.meta.env.VITE_SERVER;
 const socket = io(url);
-socket.emit('connection');
 
 app.use(router);
 app.use(pinia);
