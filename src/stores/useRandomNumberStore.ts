@@ -1,20 +1,25 @@
 import {defineStore} from "pinia";
-import {Socket} from "socket.io";
+import { Socket } from "socket.io-client";
+import {ClientToServerEvents, ServerToClientEvents} from "../main.ts";
 type State = {
-  generated: number,
+  generatedCount: number,
   currentLaunch: null | number,
   interval: null | number,
   currentNumber: null | number,
-  socket: null | Socket,
+  socket: null | Socket<ServerToClientEvents, ClientToServerEvents>,
+  numbers: number[]
 }
 export const useRandomNumberStore = defineStore('random', {
-  state: (): State => ({
-    generated: 0,
-    currentLaunch: null,
-    interval: null,
-    currentNumber: null,
-    socket: null,
-  }),
+  state: (): State => {
+    return {
+      generatedCount: 0,
+      currentLaunch: null,
+      interval: null,
+      currentNumber: null,
+      socket: null,
+      numbers: [],
+    }
+  },
   getters: {
     generated: (state) => {
       if(!state.socket) return;
@@ -27,6 +32,10 @@ export const useRandomNumberStore = defineStore('random', {
     start(socket: Socket) {
       this.socket = socket;
       socket.emit('connection');
+      socket.on('random', (randomNumber: number) => {
+        console.log(randomNumber)
+        this.numbers.push(randomNumber);
+      });
     }
   },
 })

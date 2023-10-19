@@ -4,10 +4,11 @@ import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./router/routes.ts";
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { createPinia } from 'pinia';
 import primeVueComponents from "./plugins/primeVueComponents.ts";
 import "primevue/resources/themes/bootstrap4-light-blue/theme.css";
+import {useRandomNumberStore} from "./stores/useRandomNumberStore.ts";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -17,8 +18,18 @@ const router = createRouter({
   routes
 });
 
+export interface ServerToClientEvents {
+  random: (randomNumber: number) => number;
+}
+
+export interface ClientToServerEvents {
+}
+
+
 const url = import.meta.env.VITE_SERVER;
-const socket = io(url);
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(url);
+const randomNumberStore = useRandomNumberStore();
+randomNumberStore.start(socket);
 
 app.use(router);
 app.use(pinia);
