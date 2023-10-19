@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="shadow-lg shadow p-5">
+  <div class="shadow-lg shadow p-5 rounded-xl">
     <p class="text-center text-3xl bg-gradient-blue bg-clip-text text-transparent">
       <slot name="header" />
     </p>
