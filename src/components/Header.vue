@@ -5,7 +5,7 @@
 <template>
   <div class="p-3 bg-blue-100 flex place-content-between text-sm">
     <div>
-      <p>Генератор случайных чисел</p>
+      <router-link to="/">Генератор случайных чисел</router-link>
     </div>
     <div class="flex gap-5 text-blue-500">
       <router-link to="/history">История</router-link>
