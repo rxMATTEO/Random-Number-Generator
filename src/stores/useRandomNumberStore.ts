@@ -7,7 +7,8 @@ type State = {
   interval: null | number,
   currentNumber: null | number,
   socket: null | Socket<ServerToClientEvents, ClientToServerEvents>,
-  numbers: Ref<number[]>
+  numbers: Ref<number[]>,
+  timeToNextNumber: Ref<number>,
 }
 export const useRandomNumberStore = defineStore('random', {
   state: (): State => {
@@ -17,6 +18,7 @@ export const useRandomNumberStore = defineStore('random', {
       currentNumber: null,
       socket: null,
       numbers: ref([]),
+      timeToNextNumber: ref(0)
     }
   },
   getters: {
@@ -39,6 +41,10 @@ export const useRandomNumberStore = defineStore('random', {
     setGenerator(launch: number, interval: number) {
       this.currentLaunch = launch;
       this.interval = interval;
+      setInterval(() => {
+        const next = this.timeToNextNumber - 1;
+        this.timeToNextNumber = next > 0 ? next : interval;
+      },1000);
     }
   },
 })

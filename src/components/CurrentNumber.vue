@@ -3,7 +3,7 @@ import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
 import {storeToRefs} from "pinia";
 
 const randomNumberStore = useRandomNumberStore();
-const { numbers } = storeToRefs(randomNumberStore);
+const { numbers, timeToNextNumber } = storeToRefs(randomNumberStore);
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const { numbers } = storeToRefs(randomNumberStore);
       <p class="text-ultra-violet text-xl">Текущее число</p>
     </div>
     <div class="mt-10">
-      <p class="text-ultra-violet">Следущее число через: 10</p>
+      <p class="text-ultra-violet">{{ `Следущее число через: ${ timeToNextNumber }` }}</p>
     </div>
   </div>
 </template>
