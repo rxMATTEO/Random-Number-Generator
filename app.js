@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.post('/number', (req, res) => {
+  console.log(req.body)
+  res.send('ok');
+});
+
 io.on('connection', (socket) => {
   socket.on('msg', (msg) => {
     console.log(msg)

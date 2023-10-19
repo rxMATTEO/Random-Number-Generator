@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import Card from  "./Card.vue";
+import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
+import {storeToRefs} from "pinia";
+
+const randomNumberStore = useRandomNumberStore();
+const { generated, currentLaunch, interval } = storeToRefs(randomNumberStore);
 </script>
 
 <template>
   <div class="mt-10 flex justify-center gap-5">
     <Card>
       <template #header>
-        249
+        {{ generated }}
       </template>
       <template #default>
         <p>Сгенерировано чисел</p>
@@ -14,7 +19,7 @@ import Card from  "./Card.vue";
     </Card>
     <Card>
       <template #header>
-        10
+        {{ currentLaunch || 'Нет' }}
       </template>
       <template #default>
         <p>Номер текущего запуска</p>
@@ -22,7 +27,7 @@ import Card from  "./Card.vue";
     </Card>
     <Card>
       <template #header>
-        76
+        {{ interval || 'Нет' }}
       </template>
       <template #default>
         <p>Текущий интервал (сек)</p>
