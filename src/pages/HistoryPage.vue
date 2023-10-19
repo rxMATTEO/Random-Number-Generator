@@ -2,15 +2,11 @@
 
 import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
-const history = [
-  { code: "1", name: "1", category: "1" },
-  { code: "1", name: "1", category: "1" },
-  { code: "1", name: "1", category: "1" },
-  { code: "1", name: "1", category: "1" },
-  { code: "1", name: "1", category: "1" },
-  { code: "1", name: "1", category: "1" },
-  { code: "1", name: "1", category: "1" },
-];
+import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
+import {storeToRefs} from "pinia";
+
+const randomNumberStore = useRandomNumberStore();
+const { numbers } = storeToRefs(randomNumberStore);
 </script>
 
 <template>
@@ -19,7 +15,7 @@ const history = [
     <div>
       <h1>История</h1>
     </div>
-    <DataTable class="mt-10" paginatorTemplate="- PrevPageLink - PageLinks - NextPageLink" paginator :rows="4" :value="history" stripedRows tableStyle="min-width: 50rem">
+    <DataTable class="mt-10" paginatorTemplate="- PrevPageLink - PageLinks - NextPageLink" paginator :rows="4" :value="numbers" stripedRows tableStyle="min-width: 50rem">
       <template #paginatorprevpagelinkicon>
         <p class="p-3">
           Предыдущая
@@ -34,17 +30,17 @@ const history = [
         headerCell: {
           class: ['bg-blue-100']
         }
-      }" field="code" header="Дата"></Column>
+      }" field="date" header="Дата" class="w-1/4"></Column>
       <Column :pt="{
         headerCell: {
           class: ['bg-blue-100']
         }
-      }" field="name" header="Номер запуска"></Column>
+      }" field="currentLaunch" header="Номер запуска"></Column>
       <Column :pt="{
         headerCell: {
           class: ['bg-blue-100']
         }
-      }" field="category" header="Число"></Column>
+      }" field="number" header="Число"></Column>
     </DataTable>
   </PaddingBox>
 </template>

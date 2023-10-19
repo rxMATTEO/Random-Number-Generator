@@ -9,7 +9,7 @@ const { numbers, timeToNextNumber } = storeToRefs(randomNumberStore);
 <template>
   <div class="flex items-center mt-20 flex-col">
     <div class="text-4xl">
-      <p class="bg-gradient-blue text-transparent bg-clip-text">{{ numbers[numbers.length - 1] || 'Нет' }}</p>
+      <p class="bg-gradient-blue text-transparent bg-clip-text">{{ numbers[numbers.length - 1]?.number || 'Нет' }}</p>
     </div>
     <div class="mt-5">
       <p class="text-ultra-violet text-xl">Текущее число</p>
