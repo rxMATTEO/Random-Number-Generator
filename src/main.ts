@@ -14,6 +14,6 @@ const router = createRouter({
   routes
 });
 app.use(router);
-app.use(PrimeVue, { ripple: true, inputStyle: 'outlined' });
+app.use(PrimeVue, { ripple: true, inputStyle: 'outlined', important: true });
 app.use(primeVueComponents);
 app.mount('#app');

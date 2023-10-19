@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,vue,ts}"],
+  content: [
+    "./src/**/*.{html,js,vue,ts}",
+    "./node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}"
+  ],
   theme: {
     extend: {
       backgroundImage: {
