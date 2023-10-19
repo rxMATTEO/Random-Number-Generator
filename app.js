@@ -5,9 +5,11 @@ app.use(cors());
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const dotenv = require("dotenv").config();
+console.log(process.env.CLIENT)
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT,
   }
 });
 
@@ -16,7 +18,8 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  socket.on('msg', (msg) => {
+  });
 });
 
 server.listen(3001, () => {

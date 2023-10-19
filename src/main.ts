@@ -17,23 +17,7 @@ const router = createRouter({
 
 const url = 'http://localhost:3001';
 const socket = io(url);
-socket.emit('connection',12);
-socket.on('message', (message) =>
-  console.log(
-    'Message from server: ',
-    message
-  )
-);
-socket.on('private message', (message) =>
-  console.log(
-    'Private message from server: ',
-    message
-  )
-);
-
-function sendMessageToServer() {
-  socket.emit('message', "I'm client");
-}
+socket.emit('connection');
 
 app.use(router);
 app.use(PrimeVue, { ripple: true, });
