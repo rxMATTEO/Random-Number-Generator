@@ -2,9 +2,20 @@
 import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
 import { ref } from "vue";
+import axios from "axios";
 
 const minMax = ref([20, 80]);
-const frequency = ref(30)
+const frequency = ref(30);
+const id = ref(312);
+
+function onStart() {
+  console.log(`${import.meta.env.VITE_SERVER}/number`);
+  axios.post(`${import.meta.env.VITE_SERVER}/number`, {
+    minMax: minMax.value,
+    frequency: frequency.value,
+    id: id.value,
+  });
+}
 </script>
 
 <template>
@@ -32,17 +43,17 @@ const frequency = ref(30)
           </div>
           <div class="mt-5 w-full flex place-content-between items-center gap-5">
             <p>1</p>
-            <Slider :model-value="frequency" v-model="frequency" class="w-full" />
+            <Slider v-model="frequency" class="w-full" />
             <p>100</p>
           </div>
         </div>
         <div class="mt-10 flex gap-10">
-          <Button label="Начать" size="small"/>
+          <Button @click="onStart" label="Начать" size="small"/>
           <Button label="Остановить" severity="secondary" size="small"/>
           <Button label="Завершить" severity="secondary" size="small"/>
         </div>
         <div class="mt-10">
-          <p>{{ `Запуск №: 312` }}</p>
+          <p>{{ `Запуск №: ${id}` }}</p>
         </div>
       </div>
     </div>
