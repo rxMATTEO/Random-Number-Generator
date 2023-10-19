@@ -15,7 +15,7 @@ const { numbers } = storeToRefs(randomNumberStore);
     <div>
       <h1>История</h1>
     </div>
-    <DataTable class="mt-10" paginatorTemplate="- PrevPageLink - PageLinks - NextPageLink" paginator :rows="4" :value="numbers" stripedRows tableStyle="min-width: 50rem">
+    <DataTable sortField="date" :sort-order="-1" class="mt-10" paginatorTemplate="- PrevPageLink - PageLinks - NextPageLink" paginator :rows="4" :value="numbers" stripedRows tableStyle="min-width: 50rem">
       <template #paginatorprevpagelinkicon>
         <p class="p-3">
           Предыдущая
@@ -26,17 +26,17 @@ const { numbers } = storeToRefs(randomNumberStore);
           Следущая
         </p>
       </template>
-      <Column :pt="{
+      <Column sortable :pt="{
         headerCell: {
           class: ['bg-blue-100']
         }
       }" field="date" header="Дата" class="w-1/4"></Column>
-      <Column :pt="{
+      <Column sortable :pt="{
         headerCell: {
           class: ['bg-blue-100']
         }
       }" field="currentLaunch" header="Номер запуска"></Column>
-      <Column :pt="{
+      <Column sortable :pt="{
         headerCell: {
           class: ['bg-blue-100']
         }
