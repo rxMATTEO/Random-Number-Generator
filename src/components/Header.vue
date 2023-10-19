@@ -8,9 +8,9 @@
       <p>Генератор случайных чисел</p>
     </div>
     <div class="flex gap-5 text-blue-500">
-      <a href="#">История</a>
-      <a href="#">Настройки</a>
-      <a href="#">Любимые числа</a>
+      <router-link to="/history">История</router-link>
+      <router-link to="/settings">Настройки</router-link>
+      <router-link to="/favorite">Любимые числа</router-link>
     </div>
   </div>
 </template>
