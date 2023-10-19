@@ -36,6 +36,11 @@ const frequency = ref(30)
             <p>100</p>
           </div>
         </div>
+        <div class="mt-10 flex gap-10">
+          <Button label="Начать" size="small"/>
+          <Button label="Остановить" severity="secondary" size="small"/>
+          <Button label="Завершить" severity="secondary" size="small"/>
+        </div>
       </div>
     </div>
   </PaddingBox>
