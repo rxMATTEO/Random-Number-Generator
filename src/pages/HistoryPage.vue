@@ -6,20 +6,45 @@ const history = [
   { code: "1", name: "1", category: "1" },
   { code: "1", name: "1", category: "1" },
   { code: "1", name: "1", category: "1" },
+  { code: "1", name: "1", category: "1" },
+  { code: "1", name: "1", category: "1" },
+  { code: "1", name: "1", category: "1" },
+  { code: "1", name: "1", category: "1" },
 ];
 </script>
 
 <template>
   <Header />
   <PaddingBox class="mt-10">
-    <Button> Click me</Button>
     <div>
       <h1>История</h1>
     </div>
-    <DataTable paginator :rows="4" :value="history" stripedRows tableStyle="min-width: 50rem">
-      <Column field="code" header="Дата"></Column>
-      <Column field="name" header="Номер запуска"></Column>
-      <Column field="category" header="Число"></Column>
+    <DataTable class="mt-10" paginatorTemplate="- PrevPageLink - PageLinks - NextPageLink" paginator :rows="4" :value="history" stripedRows tableStyle="min-width: 50rem">
+      <template #paginatorprevpagelinkicon>
+        <p class="p-3">
+          Предыдущая
+        </p>
+      </template>
+      <template #paginatornextpagelinkicon>
+        <p class="p-3">
+          Следущая
+        </p>
+      </template>
+      <Column :pt="{
+        headerCell: {
+          class: ['bg-blue-100']
+        }
+      }" field="code" header="Дата"></Column>
+      <Column :pt="{
+        headerCell: {
+          class: ['bg-blue-100']
+        }
+      }" field="name" header="Номер запуска"></Column>
+      <Column :pt="{
+        headerCell: {
+          class: ['bg-blue-100']
+        }
+      }" field="category" header="Число"></Column>
     </DataTable>
   </PaddingBox>
 </template>
