@@ -41,6 +41,9 @@ const frequency = ref(30)
           <Button label="Остановить" severity="secondary" size="small"/>
           <Button label="Завершить" severity="secondary" size="small"/>
         </div>
+        <div class="mt-10">
+          <p>{{ `Запуск №: 312` }}</p>
+        </div>
       </div>
     </div>
   </PaddingBox>
