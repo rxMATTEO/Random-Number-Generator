@@ -2,7 +2,7 @@
 
 import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
-import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
+import {useRandomNumberStore} from "../stores/randomNumberStore.ts";
 import {storeToRefs} from "pinia";
 
 const randomNumberStore = useRandomNumberStore();

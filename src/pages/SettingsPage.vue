@@ -3,7 +3,7 @@ import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
 import { ref } from "vue";
 import axios from "axios";
-import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
+import {useRandomNumberStore} from "../stores/randomNumberStore.ts";
 
 const minMax = ref([20, 80]);
 const frequency = ref(30);

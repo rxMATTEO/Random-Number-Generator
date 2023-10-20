@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useRandomNumberStore} from "../stores/useRandomNumberStore.ts";
+import {useRandomNumberStore} from "../stores/randomNumberStore.ts";
 import {storeToRefs} from "pinia";
 
 const randomNumberStore = useRandomNumberStore();
