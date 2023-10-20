@@ -4,8 +4,9 @@ import Column from "primevue/column";
 import Button from "primevue/button";
 import Slider from "primevue/slider";
 import InputText from "primevue/inputtext";
+import InputNumber from "primevue/inputnumber";
 
-const plugins = [DataTable, Column, Button, Slider, InputText];
+const plugins = [DataTable, Column, Button, Slider, InputText, InputNumber];
 
 export default {
   install(app: App) {

@@ -33,9 +33,9 @@ function onStart() {
             <p>Интервал значений чисел:</p>
           </div>
           <div class="mt-5 w-full flex place-content-between items-center gap-5">
-            <InputText :value="minMax[0]" class="block w-12" />
+            <InputNumber :min="0" :max="99" v-model="minMax[0]" class="w-12" :pt="{input: { class: 'w-12' }}" />
             <Slider v-model="minMax" range class="w-full" />
-            <InputText :value="minMax[1]" class="block w-12" />
+            <InputNumber :min="minMax[0]" :max="100" v-model="minMax[1]" class="w-12" :pt="{input: { class: 'w-12' }}" />
           </div>
         </div>
         <div class="mt-10">
