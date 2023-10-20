@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
-import { ref } from "vue";
+import {computed, ref} from "vue";
 import axios from "axios";
 import {useRandomNumberStore} from "../stores/randomNumberStore.ts";
 
 const minMax = ref([20, 80]);
 const frequency = ref(30);
-const id = ref(312);
+const id = computed(() => +Math.random().toFixed(2) * 100 )
 const randomNumberStore = useRandomNumberStore();
 function onStart() {
   randomNumberStore.setGenerator(id.value, frequency.value);
@@ -17,6 +17,7 @@ function onStart() {
     id: id.value,
   });
 }
+
 </script>
 
 <template>
@@ -54,7 +55,7 @@ function onStart() {
           <Button label="Завершить" severity="secondary" size="small"/>
         </div>
         <div class="mt-10">
-          <p>{{ `Запуск №: ${id}` }}</p>
+          <p>{{ `Запуск №: ${ id }` }}</p>
         </div>
       </div>
     </div>
