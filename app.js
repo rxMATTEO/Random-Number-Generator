@@ -14,10 +14,6 @@ const io = new Server(server, {
   }
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
-
 app.post('/number', (req, res) => {
   const { minMax: [min, max], frequency, id } = req.body;
   setInterval(() => {
