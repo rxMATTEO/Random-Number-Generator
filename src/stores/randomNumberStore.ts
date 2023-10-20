@@ -10,7 +10,8 @@ export type State = {
   socket: null | Socket<ServerToClientEvents, ClientToServerEvents>,
   numbers: Ref<History[]>,
   timeToNextNumber: Ref<number>,
-  minMax: Ref<[number, number]>
+  minMax: Ref<[number, number]>,
+  _intervalId: null | number,
 }
 
 type History = Pick<State, 'currentLaunch'> & {
@@ -27,6 +28,7 @@ export const useRandomNumberStore = defineStore('random', {
       numbers: ref([]),
       timeToNextNumber: ref(0),
       minMax: ref<[number,number]>([20, 80]),
+      _intervalId: null,
     }
   },
   actions: {
@@ -41,14 +43,23 @@ export const useRandomNumberStore = defineStore('random', {
         });
       });
     },
+    stop(id: State['currentLaunch']){
+      console.log(id)
+      if(!this.interval || this.currentLaunch !== id){
+        return;
+      }
+      clearInterval(this._intervalId as number);
+      this._intervalId = null;
+    },
     setGenerator(launch: State["currentLaunch"], interval: number, minMax: UnwrapRef<State["minMax"]>) {
       this.currentLaunch = launch;
       this.interval = interval;
       this.minMax = minMax;
-      setInterval(() => {
+      const id: number = window.setInterval(() => {
         const next = this.timeToNextNumber - 1;
         this.timeToNextNumber = next > 0 ? next : interval;
       },1000);
+      this._intervalId = id;
     }
   },
 })

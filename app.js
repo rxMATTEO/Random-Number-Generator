@@ -19,7 +19,7 @@ app.post('/number', (req, res) => {
   setInterval(() => {
     io.emit('random', useRandom(min, max));
   }, frequency * 1000)
-  res.code(200);
+  res.status(200);
 });
 
 io.on('connection', () => {

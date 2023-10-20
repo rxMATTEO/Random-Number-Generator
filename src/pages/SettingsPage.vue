@@ -16,15 +16,6 @@ const frequency = ref(30);
 const id = computed(() => +Math.random().toFixed(2) * 100 );
 const randomNumberStore = useRandomNumberStore();
 const { minMax: storedMinMax, interval: storedFrequency, currentLaunch: storedId } = storeToRefs(randomNumberStore);
-function onStart() {
-  randomNumberStore.setGenerator(id.value, frequency.value, minMax.value);
-  axios.post(`${import.meta.env.VITE_SERVER}/number`, {
-    minMax: minMax.value,
-    frequency: frequency.value,
-    id: id.value,
-  });
-}
-
 const unstartedBinding: Binding = {
   minMax,
   frequency,
@@ -36,6 +27,20 @@ const startedBinding: Binding = {
   id: storedId,
 }
 const bindingTarget = computed(() => startedBinding.id.value ? startedBinding : unstartedBinding);
+
+function onStart() {
+  randomNumberStore.setGenerator(id.value, frequency.value, minMax.value);
+  axios.post(`${import.meta.env.VITE_SERVER}/number`, {
+    minMax: minMax.value,
+    frequency: frequency.value,
+    id: id.value,
+  });
+}
+
+function onStop() {
+  randomNumberStore.stop(bindingTarget.value.id.value);
+}
+
 </script>
 
 <template>
@@ -69,7 +74,7 @@ const bindingTarget = computed(() => startedBinding.id.value ? startedBinding : 
         </div>
         <div class="mt-10 flex gap-10">
           <Button @click="onStart" label="Начать" size="small"/>
-          <Button label="Остановить" severity="secondary" size="small"/>
+          <Button @click="onStop" label="Остановить" severity="secondary" size="small"/>
           <Button label="Завершить" severity="secondary" size="small"/>
         </div>
         <div class="mt-10">
