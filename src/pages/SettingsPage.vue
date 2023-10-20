@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
-import {computed, ref} from "vue";
+import {computed, Ref, ref} from "vue";
 import axios from "axios";
-import {useRandomNumberStore} from "../stores/randomNumberStore.ts";
+import {State, useRandomNumberStore} from "../stores/randomNumberStore.ts";
+import {storeToRefs} from "pinia";
 
-const minMax = ref([20, 80]);
+type Binding = {
+  minMax: State['minMax'];
+  frequency: Ref<State['interval']>;
+  id: Ref<State['currentLaunch']>;
+}
+const minMax = ref<[number, number]>([20, 80]);
 const frequency = ref(30);
-const id = computed(() => +Math.random().toFixed(2) * 100 )
+const id = computed(() => +Math.random().toFixed(2) * 100 );
 const randomNumberStore = useRandomNumberStore();
+const { minMax: storedMinMax, interval: storedFrequency, currentLaunch: storedId } = storeToRefs(randomNumberStore);
 function onStart() {
-  randomNumberStore.setGenerator(id.value, frequency.value);
+  randomNumberStore.setGenerator(id.value, frequency.value, minMax.value);
   axios.post(`${import.meta.env.VITE_SERVER}/number`, {
     minMax: minMax.value,
     frequency: frequency.value,
@@ -18,6 +25,17 @@ function onStart() {
   });
 }
 
+const unstartedBinding: Binding = {
+  minMax,
+  frequency,
+  id,
+};
+const startedBinding: Binding = {
+  minMax: storedMinMax,
+  frequency: storedFrequency,
+  id: storedId,
+}
+const bindingTarget = computed(() => startedBinding.id.value ? startedBinding : unstartedBinding);
 </script>
 
 <template>
@@ -34,18 +52,18 @@ function onStart() {
             <p>Интервал значений чисел:</p>
           </div>
           <div class="mt-5 w-full flex place-content-between items-center gap-5">
-            <InputNumber :min="0" :max="99" v-model="minMax[0]" class="w-12" :pt="{input: { class: 'w-12' }}" />
-            <Slider v-model="minMax" range class="w-full" />
-            <InputNumber :min="minMax[0]" :max="100" v-model="minMax[1]" class="w-12" :pt="{input: { class: 'w-12' }}" />
+            <InputNumber :min="0" :max="99" v-model="bindingTarget.minMax.value[0]" class="w-12" :pt="{input: { class: 'w-12' }}" />
+            <Slider v-model="bindingTarget.minMax.value" range class="w-full" />
+            <InputNumber :min="bindingTarget.minMax.value[0]" :max="100" v-model="bindingTarget.minMax.value[1]" class="w-12" :pt="{input: { class: 'w-12' }}" />
           </div>
         </div>
         <div class="mt-10">
           <div>
-            <p>{{ `Частота генерации чисел: ${frequency} секунд`}}</p>
+            <p>{{ `Частота генерации чисел: ${bindingTarget.frequency.value} секунд`}}</p>
           </div>
           <div class="mt-5 w-full flex place-content-between items-center gap-5">
             <p>1</p>
-            <Slider v-model="frequency" class="w-full" />
+            <Slider v-model="bindingTarget.frequency.value as number" class="w-full" />
             <p>100</p>
           </div>
         </div>
@@ -55,7 +73,7 @@ function onStart() {
           <Button label="Завершить" severity="secondary" size="small"/>
         </div>
         <div class="mt-10">
-          <p>{{ `Запуск №: ${ id }` }}</p>
+          <p>{{ `Запуск №: ${ bindingTarget.id.value }` }}</p>
         </div>
       </div>
     </div>

@@ -27,9 +27,7 @@ app.post('/number', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.on('msg', (msg) => {
-    console.log(msg)
-  });
+  console.log('client socket connected')
 });
 
 server.listen(3001, () => {
