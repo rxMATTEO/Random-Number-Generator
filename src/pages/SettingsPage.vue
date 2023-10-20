@@ -42,6 +42,11 @@ function onStop() {
   randomNumberStore.stop(bindingTarget.value.id.value);
 }
 
+function onRemove() {
+  onStop();
+  randomNumberStore.$reset();
+}
+
 </script>
 
 <template>
@@ -76,7 +81,7 @@ function onStop() {
         <div class="mt-10 flex gap-10">
           <Button @click="onStart" label="Начать" size="small"/>
           <Button @click="onStop" label="Остановить" severity="secondary" size="small"/>
-          <Button label="Завершить" severity="secondary" size="small"/>
+          <Button @click="onRemove" label="Завершить" severity="secondary" size="small"/>
         </div>
         <div class="mt-10">
           <p>{{ `Запуск №: ${ bindingTarget.id.value }` }}</p>
