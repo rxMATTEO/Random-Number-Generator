@@ -36,14 +36,8 @@ export const useRandomNumberStore = defineStore('random', {
   actions: {
     start(socket: Socket) {
       this.socket = socket;
-      const favNumbersStore = useFavNumbersStore();
-      const { numbers } = storeToRefs(favNumbersStore);
       socket.emit('connection');
       socket.on('random', (randomNumber: number) => {
-        if(numbers.value.has(randomNumber)) {
-          const toast = useToast();
-          toast.add({ severity: 'success', detail: `Выпало ваше счастливое число ${randomNumber}`, life: 3000 });
-        }
         this.numbers.push({
           currentLaunch: this.currentLaunch,
           date: new Date(),

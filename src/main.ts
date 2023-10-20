@@ -5,10 +5,11 @@ import PrimeVue from 'primevue/config';
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./router/routes.ts";
 import { io, Socket } from 'socket.io-client';
-import { createPinia } from 'pinia';
+import {createPinia, storeToRefs} from 'pinia';
 import primeVueComponents from "./plugins/primeVueComponents.ts";
 import "primevue/resources/themes/bootstrap4-light-blue/theme.css";
 import {useRandomNumberStore} from "./stores/randomNumberStore.ts";
+import {useFavNumbersStore} from "./stores/favNumbersStore.ts";
 
 const app = createApp(App);
 const pinia = createPinia();

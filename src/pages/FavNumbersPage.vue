@@ -3,10 +3,15 @@ import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
 import AddFavNumber from "../components/AddFavNumber.vue";
 import {ref} from "vue";
+import {useFavNumbersStore} from "../stores/favNumbersStore.ts";
+import {storeToRefs} from "pinia";
 
 const isVisible = ref(false);
+const favNumbersStore = useFavNumbersStore();
+const {numbers} = storeToRefs(favNumbersStore);
 function addFav(number: number){
-  isVisible.value = true;
+  favNumbersStore.addNumber(number);
+  isVisible.value = false;
 }
 </script>
 
@@ -28,6 +33,11 @@ function addFav(number: number){
       </div>
     </div>
   </PaddingBox>
+  <div class="m-20 flex gap-10">
+    <span v-for="number in numbers" :key="number" class="p-3 text-xl rounded-xl bg-blue-200">
+      {{ number }}
+    </span>
+  </div>
 </template>
 
 <style scoped>
