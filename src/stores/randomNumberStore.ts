@@ -27,20 +27,11 @@ export const useRandomNumberStore = defineStore('random', {
       timeToNextNumber: ref(0)
     }
   },
-  getters: {
-    generated: (state) => {
-      if(!state.socket) return;
-      state.socket.on('random', (randomNumber: number) => {
-        return randomNumber;
-      });
-    },
-  },
   actions: {
     start(socket: Socket) {
       this.socket = socket;
       socket.emit('connection');
       socket.on('random', (randomNumber: number) => {
-        console.log(randomNumber)
         this.numbers.push({
           currentLaunch: this.currentLaunch,
           date: new Date(),
