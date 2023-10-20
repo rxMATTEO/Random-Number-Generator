@@ -44,12 +44,12 @@ export const useRandomNumberStore = defineStore('random', {
       });
     },
     stop(id: State['currentLaunch']){
-      console.log(id)
       if(!this.interval || this.currentLaunch !== id){
         return;
       }
       clearInterval(this._intervalId as number);
       this._intervalId = null;
+      this.socket.emit('stop');
     },
     setGenerator(launch: State["currentLaunch"], interval: number, minMax: UnwrapRef<State["minMax"]>) {
       this.currentLaunch = launch;
