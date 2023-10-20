@@ -49,7 +49,7 @@ export const useRandomNumberStore = defineStore('random', {
       }
       clearInterval(this._intervalId as number);
       this._intervalId = null;
-      this.socket.emit('stop');
+      this.socket?.emit('stop');
     },
     setGenerator(launch: State["currentLaunch"], interval: number, minMax: UnwrapRef<State["minMax"]>) {
       this.currentLaunch = launch;

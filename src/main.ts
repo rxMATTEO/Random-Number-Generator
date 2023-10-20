@@ -23,6 +23,7 @@ export interface ServerToClientEvents {
 }
 
 export interface ClientToServerEvents {
+  stop: () => void;
 }
 
 
