@@ -3,6 +3,7 @@ import { Socket } from "socket.io-client";
 import {ClientToServerEvents, ServerToClientEvents} from "../main.ts";
 import {Ref, ref, UnwrapRef} from "vue";
 import {useFavNumbersStore} from "./favNumbersStore.ts";
+import {useToast} from "primevue/usetoast";
 
 export type State = {
   currentLaunch: null | number,
@@ -39,7 +40,10 @@ export const useRandomNumberStore = defineStore('random', {
       const { numbers } = storeToRefs(favNumbersStore);
       socket.emit('connection');
       socket.on('random', (randomNumber: number) => {
-        if(randomNumber)
+        if(numbers.value.has(randomNumber)) {
+          const toast = useToast();
+          toast.add({ severity: 'success', detail: `Выпало ваше счастливое число ${randomNumber}`, life: 3000 });
+        }
         this.numbers.push({
           currentLaunch: this.currentLaunch,
           date: new Date(),
