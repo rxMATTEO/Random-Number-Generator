@@ -26,14 +26,11 @@ const startedBinding: Binding = {
   frequency: storedFrequency,
   id: storedId,
 }
-const bindingTarget = computed(() => {
-  console.log(startedBinding.id.value)
-  return startedBinding.id.value ? startedBinding : unstartedBinding
-});
+const bindingTarget = computed(() => startedBinding.id.value ? startedBinding : unstartedBinding);
 
 function onStart() {
   const { id, minMax, frequency } = bindingTarget.value;
-  randomNumberStore.setGenerator(id.value, frequency.value, minMax.value);
+  randomNumberStore.setGenerator(id.value, frequency.value as number, minMax.value);
   axios.post(`${import.meta.env.VITE_SERVER}/number`, {
     minMax: minMax.value,
     frequency: frequency.value,
