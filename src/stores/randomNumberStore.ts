@@ -1,7 +1,8 @@
-import {defineStore} from "pinia";
+import {defineStore, storeToRefs} from "pinia";
 import { Socket } from "socket.io-client";
 import {ClientToServerEvents, ServerToClientEvents} from "../main.ts";
 import {Ref, ref, UnwrapRef} from "vue";
+import {useFavNumbersStore} from "./favNumbersStore.ts";
 
 export type State = {
   currentLaunch: null | number,
@@ -34,8 +35,11 @@ export const useRandomNumberStore = defineStore('random', {
   actions: {
     start(socket: Socket) {
       this.socket = socket;
+      const favNumbersStore = useFavNumbersStore();
+      const { numbers } = storeToRefs(favNumbersStore);
       socket.emit('connection');
       socket.on('random', (randomNumber: number) => {
+        if(randomNumber)
         this.numbers.push({
           currentLaunch: this.currentLaunch,
           date: new Date(),
