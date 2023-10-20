@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const useRandom = require("./utils/useRandom");
 const {clearInterval} = require("timers");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT,
