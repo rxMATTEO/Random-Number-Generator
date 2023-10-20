@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import Header from "../components/Header.vue";
 import PaddingBox from "../components/PaddingBox.vue";
-function addFav(){
+import AddFavNumber from "../components/AddFavNumber.vue";
+import {ref} from "vue";
 
+const isVisible = ref(false);
+function addFav(number: number){
+  isVisible.value = true;
 }
 </script>
 
 <template>
   <Header />
+  <Dialog v-model:visible="isVisible">
+    <AddFavNumber @close="isVisible = false" @add="addFav" />
+  </Dialog>
   <PaddingBox>
     <div class="mt-10">
       <div class="flex items-center gap-5">
@@ -17,7 +24,7 @@ function addFav(){
           <br />
           числа
         </h1>
-        <Button size="small" label="+ Добавить" @click="addFav" />
+        <Button size="small" label="+ Добавить" @click="isVisible = true" />
       </div>
     </div>
   </PaddingBox>
