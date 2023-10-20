@@ -18,7 +18,6 @@ let intervalId = null;
 
 app.post('/number', (req, res) => {
   const { minMax: [min, max], frequency, id } = req.body;
-  console.log(frequency)
   const interval = setInterval(() => {
     io.emit('random', useRandom(min, max));
   }, frequency * 1000);
@@ -30,7 +29,6 @@ io.on('connection', (socket) => {
   console.log('client socket connected');
   socket.on('stop', () => {
     clearInterval(intervalId);
-    console.log('stopping');
   });
 });
 
