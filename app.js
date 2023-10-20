@@ -19,10 +19,10 @@ app.post('/number', (req, res) => {
   setInterval(() => {
     io.emit('random', useRandom(min, max));
   }, frequency * 1000)
-  res.send({});
+  res.code(200);
 });
 
-io.on('connection', (socket) => {
+io.on('connection', () => {
   console.log('client socket connected')
 });
 
