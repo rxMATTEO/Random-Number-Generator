@@ -34,9 +34,7 @@ function addFav(number: number){
     </div>
   </PaddingBox>
   <div class="m-20 flex gap-10">
-    <span v-for="number in numbers" :key="number" class="p-3 text-xl rounded-xl bg-blue-200">
-      {{ number }}
-    </span>
+    <Chip @remove="favNumbersStore.removeNumber(number)" removable v-for="number in numbers" :label="number.toString()" :key="number" class="p-3 text-xl rounded-xl bg-blue-200" />
   </div>
 </template>
 

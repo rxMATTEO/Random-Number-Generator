@@ -10,8 +10,9 @@ import DialogService from 'primevue/dialogservice';
 import Toast from "primevue/toast";
 import Divider from "primevue/divider";
 import Dialog from "primevue/dialog";
+import Chip from "primevue/chip";
 
-const plugins = [DataTable, Column, Button, Slider, InputText, InputNumber, Toast, Dialog, Divider];
+const plugins = [DataTable, Column, Button, Slider, InputText, InputNumber, Toast, Dialog, Divider, Chip];
 
 export default {
   install(app: App) {
