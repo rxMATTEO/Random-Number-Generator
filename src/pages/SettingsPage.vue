@@ -68,7 +68,7 @@ function onStop() {
           </div>
           <div class="mt-5 w-full flex place-content-between items-center gap-5">
             <p>1</p>
-            <Slider v-model="bindingTarget.frequency.value as number" class="w-full" />
+            <Slider :min="1" v-model="bindingTarget.frequency.value as number" class="w-full" />
             <p>100</p>
           </div>
         </div>
